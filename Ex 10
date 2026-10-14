@@ -1,42 +1,25 @@
-Import java.util.Random;
-Class NumberGenerator extends Thread {
- Public void run() {
- Random r = new Random();
- While (true) {
- Int n = r.nextInt(100);
- System.out.println(“Generated Number: “ + n);
- If (n % 2 == 0) {
- New SquareThread(n).start();
- } else {
- New CubeThread(n).start();
- }
- Try {
- Thread.sleep(1000);
- } catch (InterruptedException e) {
- System.out.println€;
- }
- }
- }
-} Class SquareThread extends Thread {
- Int n;
- SquareThread(int n) {
- This.n = n;
- }
- Public void run() {
- System.out.println(“Square of “ + n + “ = “ + (n * n));
- }
+import java.sql.;
+public class Test
+{
+public static void main(String s[])throws Exception
+{
+Connection con;
+PreparedStatement ps;
+Class.forName("com.mysql.jdbc.Driver");
+con=DriverManager.getConnection("jdbc:mysql://localhost:3306/pooja","root","");
+ps=con.prepareStatement("insert into students values(101,'pooja','Msc(CS)',7.35)");
+ps.executeUpdate();
+System.out.println("Insert Successfully");
+ps=con.prepareStatement("UPDATE `students` SET `depT`='CSE' WHERE `rollno`=101");
+ps.executeUpdate();
+System.out.println("Updated Successfully ");
+ps=con.prepareStatement("SELECT * FROM `students` ");
+System.out.println("Student Records");
+ResultSet rs=ps.executeQuery();
+while(rs.next())
+{System.out.println(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getDouble(4));}
+ps=con.prepareStatement("DELETE FROM `students` WHERE `rollno`=101 ");
+ps.executeUpdate();
+System.out.println("Deleted Successfully ");
 }
-Class CubeThread extends Thread {
- Int n;
- CubeThread(int n) {
- This.n = n;
- }
- Public void run() {
- System.out.println(“Cube of “ + n + “ = “ + (n * n * n));
- }
-}
-Public class MultiThreadedNumber { Public static void main(String[] args) {
- NumberGenerator t = new NumberGenerator();
- t.start();
- }
 }
