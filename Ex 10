@@ -1,0 +1,42 @@
+Import java.util.Random;
+Class NumberGenerator extends Thread {
+ Public void run() {
+ Random r = new Random();
+ While (true) {
+ Int n = r.nextInt(100);
+ System.out.println(“Generated Number: “ + n);
+ If (n % 2 == 0) {
+ New SquareThread(n).start();
+ } else {
+ New CubeThread(n).start();
+ }
+ Try {
+ Thread.sleep(1000);
+ } catch (InterruptedException e) {
+ System.out.println€;
+ }
+ }
+ }
+} Class SquareThread extends Thread {
+ Int n;
+ SquareThread(int n) {
+ This.n = n;
+ }
+ Public void run() {
+ System.out.println(“Square of “ + n + “ = “ + (n * n));
+ }
+}
+Class CubeThread extends Thread {
+ Int n;
+ CubeThread(int n) {
+ This.n = n;
+ }
+ Public void run() {
+ System.out.println(“Cube of “ + n + “ = “ + (n * n * n));
+ }
+}
+Public class MultiThreadedNumber { Public static void main(String[] args) {
+ NumberGenerator t = new NumberGenerator();
+ t.start();
+ }
+}
